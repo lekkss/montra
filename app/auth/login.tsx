@@ -1,11 +1,4 @@
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  Pressable,
-  StyleSheet,
-} from "react-native";
+import { View, Text, Image, TouchableOpacity, Pressable } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import FormField from "@/components/form/FormField";
@@ -45,7 +38,9 @@ const Login = () => {
         />
         <Buttton
           title="Login"
-          onPress={() => {}}
+          onPress={() => {
+            router.replace("/(tabs)");
+          }}
           containerStyle="bg-violet"
           textStyle="text-white"
         />
@@ -70,18 +65,3 @@ const Login = () => {
 };
 
 export default Login;
-const styles = StyleSheet.create({
-  checkboxBase: {
-    width: 24,
-    height: 24,
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 6,
-    borderWidth: 2,
-    borderColor: "#7F3DFF",
-    backgroundColor: "transparent",
-  },
-  checkboxChecked: {
-    backgroundColor: "#7F3DFF",
-  },
-});
