@@ -92,7 +92,7 @@ const Signup = () => {
           <Text className="text-light20 font-inter500 text-xl">
             Already have an account?
           </Text>
-          <Pressable onPress={() => router.push("/auth/login")}>
+          <Pressable onPress={() => router.replace("/auth/login")}>
             <Text className="text-violet underline font-inter500 text-xl">
               Login
             </Text>

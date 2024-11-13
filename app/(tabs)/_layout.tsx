@@ -1,16 +1,15 @@
 import React from "react";
 import { Tabs } from "expo-router";
-import TabBar from "@/components/navigation/TabBar";
 import {
   Image,
   ImageSourcePropType,
   Text,
   View,
-  StyleSheet,
   TouchableOpacity,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
+// Type for TabIcon component props
 type TabIconType = {
   icon: ImageSourcePropType;
   color: string;
@@ -18,20 +17,19 @@ type TabIconType = {
   focused: boolean;
 };
 
+// Tab Icon Component with Tailwind Styling
 const TabIcon = ({ icon, color, name, focused }: TabIconType) => {
   return (
-    <View style={styles.iconContainer}>
+    <View className="items-center justify-center pt-2">
       <Image
         source={icon}
         resizeMode="contain"
-        style={[styles.iconImage, { tintColor: color }]}
+        className="w-6 h-6"
+        style={{ tintColor: color }}
       />
       <Text
-        style={[
-          styles.iconText,
-          focused ? styles.iconTextFocused : styles.iconTextRegular,
-          { color },
-        ]}
+        className={`${focused ? "font-semibold" : "font-regular"} text-xs`}
+        style={{ color }}
       >
         {name}
       </Text>
@@ -39,11 +37,11 @@ const TabIcon = ({ icon, color, name, focused }: TabIconType) => {
   );
 };
 
-// Custom FAB button positioned in the center of the bottom tab
+// Floating Action Button (FAB) centered in the bottom navigation
 const FloatingActionButton = () => {
   return (
     <TouchableOpacity
-      style={styles.fab}
+      className="absolute bottom-14 self-center w-16 h-16 bg-violet rounded-full items-center justify-center shadow-lg"
       onPress={() => console.log("FAB Pressed")}
     >
       <Ionicons name="add" size={28} color="white" />
@@ -51,9 +49,10 @@ const FloatingActionButton = () => {
   );
 };
 
+// Main Tab Layout with Floating Action Button
 const TabsLayout = () => {
   return (
-    <View style={{ flex: 1 }}>
+    <View className="flex-1">
       <Tabs
         screenOptions={{
           tabBarShowLabel: false,
@@ -136,40 +135,3 @@ const TabsLayout = () => {
 };
 
 export default TabsLayout;
-
-const styles = StyleSheet.create({
-  iconContainer: {
-    alignItems: "center",
-    justifyContent: "center",
-    paddingTop: 8,
-  },
-  iconImage: {
-    width: 24,
-    height: 24,
-  },
-  iconText: {
-    fontSize: 10,
-  },
-  iconTextFocused: {
-    fontFamily: "font-psemibold",
-  },
-  iconTextRegular: {
-    fontFamily: "font-pregular",
-  },
-  fab: {
-    position: "absolute",
-    bottom: 45, // Positioned slightly above the tab bar
-    alignSelf: "center",
-    backgroundColor: "#7F3DFF", // Adjust FAB color here
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    alignItems: "center",
-    justifyContent: "center",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 5,
-    elevation: 5,
-  },
-});

@@ -62,7 +62,7 @@ const OnboardingScreen = () => {
           <Buttton
             title="Sign Up"
             onPress={() => {
-              router.push("/auth/signup");
+              router.replace("/auth/signup");
             }}
             containerStyle="bg-violet"
             textStyle="text-white"
@@ -71,7 +71,7 @@ const OnboardingScreen = () => {
           <Buttton
             title="Login"
             onPress={() => {
-              router.push("/auth/login");
+              router.replace("/auth/login");
             }}
             containerStyle="bg-violet/20"
             textStyle="text-violet"

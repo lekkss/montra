@@ -1,0 +1,1 @@
+const data = [{value: 15}, {value: 30}, {value: 26}, {value: 40}];
