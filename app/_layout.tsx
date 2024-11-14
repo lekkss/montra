@@ -63,6 +63,9 @@ const Layout = () => {
           }}
         />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="expense" options={{ headerShown: false }} />
+        <Stack.Screen name="income" options={{ headerShown: false }} />
+        <Stack.Screen name="transfer" options={{ headerShown: false }} />
       </Stack>
     </View>
   );

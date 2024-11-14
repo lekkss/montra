@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import FloatingActionButton from "@/components/FloatingButton";
 
 // Type for TabIcon component props
 type TabIconType = {
@@ -34,18 +35,6 @@ const TabIcon = ({ icon, color, name, focused }: TabIconType) => {
         {name}
       </Text>
     </View>
-  );
-};
-
-// Floating Action Button (FAB) centered in the bottom navigation
-const FloatingActionButton = () => {
-  return (
-    <TouchableOpacity
-      className="absolute bottom-14 self-center w-16 h-16 bg-violet rounded-full items-center justify-center shadow-lg"
-      onPress={() => console.log("FAB Pressed")}
-    >
-      <Ionicons name="add" size={28} color="white" />
-    </TouchableOpacity>
   );
 };
 

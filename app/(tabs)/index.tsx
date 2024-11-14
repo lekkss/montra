@@ -1,7 +1,6 @@
 import {
   View,
   Text,
-  ScrollView,
   SafeAreaView,
   Image,
   Pressable,
@@ -89,7 +88,7 @@ const Home = () => {
               activeFilter={activeFilter}
               handleChangeFilter={handleChangeFilter}
             />
-            <View className="justify-between flex-row items-center p-4">
+            <View className="justify-between flex-row items-center p-4 py-8">
               <Text className="text-2xl font-inter600">
                 Recent Transactions
               </Text>

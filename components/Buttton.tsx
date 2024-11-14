@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable, TouchableOpacity } from "react-native";
 
 type ButtonPropType = {
   title: string;
@@ -19,7 +19,7 @@ const Button = ({
   icon,
 }: ButtonPropType) => {
   return (
-    <Pressable
+    <TouchableOpacity
       onPress={onPress}
       className={`rounded-2xl w-full p-5 ${containerStyle} ${
         loading ? "opacity-50" : ""
@@ -32,7 +32,7 @@ const Button = ({
           {title}
         </Text>
       </View>
-    </Pressable>
+    </TouchableOpacity>
   );
 };
 
