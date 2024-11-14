@@ -76,7 +76,6 @@ const FormSelectInput = ({
       <CategoryModal
         modalRef={modalRef}
         handleSelectOption={handleSelectOption}
-        closeCategoryModal={closeCategoryModal}
         options={options}
       />
     </View>

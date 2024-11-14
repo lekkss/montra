@@ -12,6 +12,7 @@ import Button from "@/components/Buttton";
 import FormSelectInput from "@/components/form/FormSelectInput";
 import CashFlowTextInput from "@/components/CashFlowTextInput";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+import AttachmentPicker from "@/components/form/AttachmentPicker";
 
 const Income = () => {
   return (
@@ -55,16 +56,7 @@ const Income = () => {
             isDropdown={true}
             placeholder="Wallet"
           />
-          <View className="flex-row items-center justify-center gap-4 border-2 border-dashed border-[#F1F1FA] rounded-2xl p-4 px-5">
-            <Image
-              source={require("../assets/icons/attachment.png")}
-              className="w-5 h-5"
-              resizeMode="contain"
-            />
-            <Text className="font-inter500 text-lg text-light20">
-              Add attachmant
-            </Text>
-          </View>
+          <AttachmentPicker maxImages={1} />
           <View className="justify-between flex-row items-center">
             <View className="gap-2">
               <Text className="font-inter500 text-xl">Repeat</Text>

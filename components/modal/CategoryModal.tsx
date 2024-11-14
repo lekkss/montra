@@ -1,10 +1,4 @@
-import {
-  View,
-  Text,
-  FlatList,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { BottomSheetModalMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
 import { BottomSheetModal, BottomSheetView } from "@gorhom/bottom-sheet";
 import React, { useMemo } from "react";
@@ -19,13 +13,11 @@ import Animated, {
 
 type CategoryModalPropType = {
   modalRef: React.RefObject<BottomSheetModalMethods>;
-  closeCategoryModal: () => void;
   handleSelectOption: (option: any) => void;
   options: any;
 };
 
 const CategoryModal = ({
-  closeCategoryModal,
   handleSelectOption,
   modalRef,
   options,
@@ -43,8 +35,9 @@ const CategoryModal = ({
           {options &&
             options.map((item: string, index: number) => (
               <TouchableOpacity
-                className="py-2 border-b border-gray-200"
+                className="py-2"
                 onPress={() => handleSelectOption(item)}
+                key={index}
               >
                 <Animated.View
                   entering={FadeInDown.delay(index * 100 + 100)
