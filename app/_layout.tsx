@@ -8,6 +8,8 @@ import {
   Inter_600SemiBold,
   Inter_400Regular,
 } from "@expo-google-fonts/inter";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 
 const Layout = () => {
   const [appIsReady, setAppIsReady] = useState(false);
@@ -42,32 +44,36 @@ const Layout = () => {
   }
 
   return (
-    <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-      <Stack>
-        <Stack.Screen
-          name="index"
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="onboarding/index"
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="auth"
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="expense" options={{ headerShown: false }} />
-        <Stack.Screen name="income" options={{ headerShown: false }} />
-        <Stack.Screen name="transfer" options={{ headerShown: false }} />
-      </Stack>
-    </View>
+    <GestureHandlerRootView className="flex-1">
+      <BottomSheetModalProvider>
+        <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
+          <Stack>
+            <Stack.Screen
+              name="index"
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="onboarding/index"
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="auth"
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="expense" options={{ headerShown: false }} />
+            <Stack.Screen name="income" options={{ headerShown: false }} />
+            <Stack.Screen name="transfer" options={{ headerShown: false }} />
+          </Stack>
+        </View>
+      </BottomSheetModalProvider>
+    </GestureHandlerRootView>
   );
 };
 

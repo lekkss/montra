@@ -11,6 +11,7 @@ import { router } from "expo-router";
 import Button from "@/components/Buttton";
 import FormSelectInput from "@/components/form/FormSelectInput";
 import CashFlowTextInput from "@/components/CashFlowTextInput";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 
 const Income = () => {
   return (
@@ -40,7 +41,7 @@ const Income = () => {
             />
           </View> */}
           <FormSelectInput
-            options={["Option 1", "Option 2", "Option 3"]}
+            options={["Shopping", "Subscription", "Food"]}
             isDropdown={true}
             placeholder="Category"
           />
@@ -50,7 +51,7 @@ const Income = () => {
             placeholder="Description"
           />
           <FormSelectInput
-            options={["Option 1", "Option 2", "Option 3"]}
+            options={["Paypal", "Stripe", "Revolut"]}
             isDropdown={true}
             placeholder="Wallet"
           />
