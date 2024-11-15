@@ -56,7 +56,7 @@ const Income = () => {
             isDropdown={true}
             placeholder="Wallet"
           />
-          <AttachmentPicker maxImages={1} />
+          <AttachmentPicker />
           <View className="justify-between flex-row items-center">
             <View className="gap-2">
               <Text className="font-inter500 text-xl">Repeat</Text>

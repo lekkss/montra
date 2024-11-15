@@ -4,7 +4,6 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Image,
-  Switch,
 } from "react-native";
 import React, { useState } from "react";
 import { router } from "expo-router";
@@ -52,7 +51,7 @@ const Expense = () => {
             isDropdown={true}
             placeholder="Wallet"
           />
-          <AttachmentPicker maxImages={1} />
+          <AttachmentPicker />
           <RepeatToggle isEnabled={isRepeatEnabled} onToggle={handleToggle} />
           <Button
             onPress={() => {}}

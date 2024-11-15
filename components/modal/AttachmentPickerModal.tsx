@@ -4,7 +4,7 @@ import CustomBottomModal from "./CustomBottomModal";
 import CameraCard from "../CameraCard";
 type AttachmentPickerModalProps = {
   modalRef: React.RefObject<any>;
-  addImage: (type: string) => void;
+  addImage: (type: "camera" | "gallery" | "document") => void;
 };
 
 const AttachmentPickerModal = ({

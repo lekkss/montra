@@ -8,15 +8,12 @@ import {
   FlatList,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
+import * as DocumentPicker from "expo-document-picker";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import AttachmentPickerModal from "../modal/AttachmentPickerModal";
 import { Ionicons } from "@expo/vector-icons";
 
-type AttachmentPickerProps = {
-  maxImages?: number;
-};
-
-const AttachmentPicker = ({ maxImages = 5 }: AttachmentPickerProps) => {
+const AttachmentPicker = () => {
   // ref
   const modalRef = useRef<BottomSheetModal>(null);
   // callbacks
@@ -26,34 +23,87 @@ const AttachmentPicker = ({ maxImages = 5 }: AttachmentPickerProps) => {
   const closePickerModal = useCallback(() => {
     modalRef.current?.close();
   }, []);
-  const [images, setImages] = useState<string[]>([]);
+  const [image, setImage] = useState<string | null>(null);
 
   // Function to handle adding an image
-  const addImage = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      quality: 1,
-    });
+  const addImage = async (type: "camera" | "gallery" | "document") => {
+    let result;
 
-    if (!result.canceled && result.assets[0].uri) {
-      if (images.length < maxImages) {
-        setImages((prevImages) => [...prevImages, result.assets[0].uri]);
+    if (type === "camera") {
+      // Request permission to access camera
+      const cameraPermission =
+        await ImagePicker.requestCameraPermissionsAsync();
+      if (cameraPermission.granted) {
+        result = await ImagePicker.launchCameraAsync({
+          allowsEditing: true,
+          quality: 1,
+        });
       } else {
-        alert(`You can only add up to ${maxImages} images.`);
+        alert("Camera permission is required.");
+        return;
+      }
+    } else if (type === "gallery") {
+      // Request permission to access the media library
+      const galleryPermission =
+        await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (galleryPermission.granted) {
+        result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.Images, // Only images
+          allowsEditing: true,
+          quality: 1,
+        });
+      } else {
+        alert("Gallery permission is required.");
+        return;
+      }
+    } else if (type === "document") {
+      // Request permission to access documents
+      const documentPermission = await DocumentPicker.getDocumentAsync({
+        type: "*/*", // Allow all types of documents
+      });
+      console.log(documentPermission);
+
+      if (documentPermission) {
+        result = documentPermission;
+      } else {
+        alert("Document picker permission is required.");
+        return;
       }
     }
+
+    // Handle the result based on type
+    if (result && result.assets) {
+      const uri = result.assets[0].uri; // For camera/gallery, uri might be inside assets
+      if (uri) {
+        // Set the image/document URI
+        setImage(uri);
+      }
+    }
+
+    // Close the picker modal if it's open
     closePickerModal();
   };
 
   // Function to handle deleting an image
   const deleteImage = (uri: string) => {
-    setImages((prevImages) => prevImages.filter((image) => image !== uri));
+    setImage(null);
   };
 
   return (
     <View className="gap-4">
-      {images.length < maxImages && (
+      {image ? (
+        <View className="relative m-4 rounded-xl self-start">
+          <View className="">
+            <Image source={{ uri: image }} className=" w-28 h-28 rounded-xl " />
+            <TouchableOpacity
+              onPress={() => deleteImage(image)}
+              style={styles.deleteButton}
+            >
+              <Ionicons name="close" color="white" size={20} />
+            </TouchableOpacity>
+          </View>
+        </View>
+      ) : (
         <TouchableOpacity
           onPress={openPickerModal}
           className="flex-row items-center justify-center gap-4 border-2 border-dashed border-[#F1F1FA] rounded-2xl p-4 px-5"
@@ -69,22 +119,6 @@ const AttachmentPicker = ({ maxImages = 5 }: AttachmentPickerProps) => {
         </TouchableOpacity>
       )}
 
-      <FlatList
-        data={images}
-        numColumns={3}
-        keyExtractor={(uri) => uri}
-        renderItem={({ item }) => (
-          <View className="relative m-4 rounded-xl ">
-            <Image source={{ uri: item }} className=" w-28 h-28 rounded-xl " />
-            <TouchableOpacity
-              onPress={() => deleteImage(item)}
-              style={styles.deleteButton}
-            >
-              <Ionicons name="close" color="white" size={20} />
-            </TouchableOpacity>
-          </View>
-        )}
-      />
       <AttachmentPickerModal addImage={addImage} modalRef={modalRef} />
     </View>
   );
