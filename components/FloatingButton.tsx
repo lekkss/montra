@@ -62,7 +62,7 @@ const FloatingActionButton = () => {
       ? router.push("/income")
       : index == 1
       ? router.push("/transfer")
-      : router.push("/expense");
+      : router.push("/expense/expense");
   };
 
   return (

@@ -2,6 +2,8 @@ import React, { useCallback, useEffect, useState } from "react";
 import { View } from "react-native"; // Import View from react-native
 import { SplashScreen, Stack } from "expo-router";
 import * as Font from "expo-font";
+import { setStatusBarStyle } from "expo-status-bar";
+
 import {
   Inter_500Medium,
   Inter_700Bold,
@@ -12,6 +14,11 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 
 const Layout = () => {
+  useEffect(() => {
+    setTimeout(() => {
+      setStatusBarStyle("light");
+    }, 0);
+  }, []);
   const [appIsReady, setAppIsReady] = useState(false);
   useEffect(() => {
     async function prepare() {
@@ -67,7 +74,10 @@ const Layout = () => {
               }}
             />
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="expense" options={{ headerShown: false }} />
+            <Stack.Screen
+              name="expense/expense"
+              options={{ headerShown: false }}
+            />
             <Stack.Screen name="income" options={{ headerShown: false }} />
             <Stack.Screen name="transfer" options={{ headerShown: false }} />
           </Stack>

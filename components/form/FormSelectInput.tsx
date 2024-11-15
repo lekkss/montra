@@ -1,15 +1,6 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import React, { useCallback, useRef, useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  Image,
-  TouchableOpacity,
-  Modal,
-  FlatList,
-  Pressable,
-} from "react-native";
+import { View, Text, TextInput, Image, Pressable } from "react-native";
 import CategoryModal from "../modal/CategoryModal";
 
 type FormSelectInputPropType = {
@@ -17,6 +8,8 @@ type FormSelectInputPropType = {
   isDropdown: boolean;
   placeholder: string;
   containerClassName?: string;
+  initialValue?: string;
+  onChange?: (value: string) => void; // This should be passed from the parent to get the selected value
 };
 
 const FormSelectInput = ({
@@ -24,19 +17,23 @@ const FormSelectInput = ({
   isDropdown = false,
   placeholder = "Select or enter text",
   containerClassName,
+  initialValue,
+  onChange, // Accept the onChange prop from the parent
 }: FormSelectInputPropType) => {
-  const [value, setValue] = useState("");
-  const [modalVisible, setModalVisible] = useState(false);
+  const [value, setValue] = useState(initialValue || "");
 
   const handleSelectOption = (option: any) => {
-    setValue(option);
-    setModalVisible(false);
-    closeCategoryModal();
+    setValue(option); // Update the local value
+    if (onChange) {
+      onChange(option); // Notify the parent component about the selection
+    }
+    closeCategoryModal(); // Close the modal after selecting
   };
 
-  // ref
+  // ref for the modal
   const modalRef = useRef<BottomSheetModal>(null);
-  // callbacks
+
+  // callbacks to open and close the modal
   const openCategoryModal = useCallback(() => {
     modalRef.current?.present();
   }, []);
@@ -56,7 +53,7 @@ const FormSelectInput = ({
               value ? "text-black" : "text-gray-400"
             }`}
           >
-            {value || placeholder}
+            {value || placeholder} {/* Display selected value or placeholder */}
           </Text>
           <Image
             source={require("../../assets/icons/arrow-down-gray.png")}
@@ -75,7 +72,7 @@ const FormSelectInput = ({
       )}
       <CategoryModal
         modalRef={modalRef}
-        handleSelectOption={handleSelectOption}
+        onSelect={handleSelectOption} // Pass the selected option handler to the modal
         options={options}
       />
     </View>

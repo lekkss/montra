@@ -32,7 +32,11 @@ const CategoryModal = ({ modalRef, options, onSelect }: CategoryModalProps) => {
   );
 
   return (
-    <CustomBottomModal modalRef={modalRef} renderContent={renderContent} />
+    <CustomBottomModal
+      modalRef={modalRef}
+      renderContent={renderContent}
+      snapPoints={["50%"]}
+    />
   );
 };
 

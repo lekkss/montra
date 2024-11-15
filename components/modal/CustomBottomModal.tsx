@@ -10,14 +10,14 @@ import Animated, {
 
 type CustomBottomModalProps = {
   modalRef: React.RefObject<any>;
-  snapPoints?: string[] | number[];
+  snapPoints: string[] | number[];
   renderContent: () => React.ReactNode;
   backdropBlurIntensity?: number;
 };
 
 const CustomBottomModal = ({
   modalRef,
-  snapPoints = ["50%"],
+  snapPoints,
   renderContent,
   backdropBlurIntensity = 25,
 }: CustomBottomModalProps) => {
