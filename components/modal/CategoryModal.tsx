@@ -1,95 +1,39 @@
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { BottomSheetModalMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
-import { BottomSheetModal, BottomSheetView } from "@gorhom/bottom-sheet";
-import React, { useMemo } from "react";
-import { BlurView } from "expo-blur";
+import React from "react";
+import { Text, TouchableOpacity, View } from "react-native";
+import Animated, { FadeInDown } from "react-native-reanimated";
+import CustomBottomModal from "./CustomBottomModal";
 
-import Animated, {
-  Extrapolation,
-  FadeInDown,
-  interpolate,
-  useAnimatedStyle,
-} from "react-native-reanimated";
-
-type CategoryModalPropType = {
-  modalRef: React.RefObject<BottomSheetModalMethods>;
-  handleSelectOption: (option: any) => void;
-  options: any;
+type CategoryModalProps = {
+  modalRef: React.RefObject<any>;
+  options: string[];
+  onSelect: (option: string) => void;
 };
 
-const CategoryModal = ({
-  handleSelectOption,
-  modalRef,
-  options,
-}: CategoryModalPropType) => {
-  const snapPoints = useMemo(() => ["50%"], []);
-
-  return (
-    <BottomSheetModal
-      ref={modalRef}
-      snapPoints={snapPoints}
-      backdropComponent={CustomBackdrop}
-    >
-      <BottomSheetView className="flex-1">
-        <View className="flex-1 flex-row gap-2 p-3">
-          {options &&
-            options.map((item: string, index: number) => (
-              <TouchableOpacity
-                className="py-2"
-                onPress={() => handleSelectOption(item)}
-                key={index}
-              >
-                <Animated.View
-                  entering={FadeInDown.delay(index * 100 + 100)
-                    .springify()
-                    .damping(11)}
-                >
-                  <View className="text-lg font-inter500 bg-light20 p-2 px-3 rounded-xl">
-                    <Text className="text-lg font-inter500 text-white">
-                      {item}
-                    </Text>
-                  </View>
-                </Animated.View>
-              </TouchableOpacity>
-            ))}
-        </View>
-      </BottomSheetView>
-    </BottomSheetModal>
+const CategoryModal = ({ modalRef, options, onSelect }: CategoryModalProps) => {
+  const renderContent = () => (
+    <View className="gap-2 flex-row">
+      {options &&
+        options.map((option, index) => (
+          <TouchableOpacity key={index} onPress={() => onSelect(option)}>
+            <Animated.View
+              entering={FadeInDown.delay(index * 100 + 100)
+                .springify()
+                .damping(11)}
+            >
+              <View className="p-3 rounded-xl bg-light20">
+                <Text className="text-lg font-inter500 text-white">
+                  {option}
+                </Text>
+              </View>
+            </Animated.View>
+          </TouchableOpacity>
+        ))}
+    </View>
   );
-};
-
-// Custom backdrop component
-const CustomBackdrop = ({ animatedIndex, style }: any) => {
-  const animatedStyle = useAnimatedStyle(() => {
-    const opacity = interpolate(
-      animatedIndex.value,
-      [-1, 0],
-      [0, 1],
-      Extrapolation.CLAMP
-    );
-    return {
-      opacity,
-    };
-  });
-
-  const containerAnimatedStyle = [
-    StyleSheet.absoluteFill,
-    style,
-    styles.overlay,
-    animatedStyle,
-  ];
 
   return (
-    <Animated.View style={containerAnimatedStyle}>
-      <BlurView style={StyleSheet.absoluteFill} tint="dark" intensity={25} />
-    </Animated.View>
+    <CustomBottomModal modalRef={modalRef} renderContent={renderContent} />
   );
 };
 
 export default CategoryModal;
-
-const styles = StyleSheet.create({
-  overlay: {
-    backgroundColor: "rgba(0,0,0,0.5)",
-  },
-});
