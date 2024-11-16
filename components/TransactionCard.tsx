@@ -18,8 +18,8 @@ const TransactionCard = ({
               ? "bg-yellow/20"
               : category == "subscription"
               ? "bg-violet/20"
-              : ""
-          } bg-white items-center justify-center rounded-2xl p-2 aspect-square`}
+              : "bg-red"
+          }  items-center justify-center rounded-2xl p-2 aspect-square`}
         >
           <Image
             className="w-fit h-fit"

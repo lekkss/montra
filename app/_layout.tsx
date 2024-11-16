@@ -16,7 +16,7 @@ import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 const Layout = () => {
   useEffect(() => {
     setTimeout(() => {
-      setStatusBarStyle("light");
+      setStatusBarStyle("dark");
     }, 0);
   }, []);
   const [appIsReady, setAppIsReady] = useState(false);

@@ -16,7 +16,7 @@ type CameraCardPropType = {
 const CameraCard = ({ addImage, text, delay, image }: CameraCardPropType) => {
   return (
     <TouchableOpacity
-      className="bg-violet/20 rounded-3xl w-1/3 flex-1 p-5"
+      className="bg-violet/20 rounded-3xl w-1/3 flex-1 p-2 py-4"
       onPress={addImage}
     >
       <Animated.View
