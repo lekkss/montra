@@ -80,6 +80,10 @@ const Layout = () => {
             />
             <Stack.Screen name="income" options={{ headerShown: false }} />
             <Stack.Screen name="transfer" options={{ headerShown: false }} />
+            <Stack.Screen
+              name="detailedTransaction/[id]"
+              options={{ headerShown: false }}
+            />
           </Stack>
         </View>
       </BottomSheetModalProvider>

@@ -1,14 +1,18 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, Pressable } from "react-native";
 import React from "react";
 import { CashFlowDataPropType } from "@/constants/data";
+import { router } from "expo-router";
 type TransactionCardPropType = {
   item: CashFlowDataPropType;
 };
 const TransactionCard = ({
-  item: { amount, category, description, id, time, type },
+  item: { amount, category, title, id, time, type },
 }: TransactionCardPropType) => {
   return (
-    <View className="bg-[#FCFCFC] rounded-3xl p-5 flex-row justify-between ">
+    <Pressable
+      className="bg-[#FCFCFC] rounded-3xl p-5 flex-row justify-between"
+      onPress={() => router.push(`/detailedTransaction/${id}`)}
+    >
       <View className="flex-row gap-5">
         <View
           className={`${
@@ -18,6 +22,8 @@ const TransactionCard = ({
               ? "bg-yellow/20"
               : category == "subscription"
               ? "bg-violet/20"
+              : category == "salary"
+              ? "bg-green/20"
               : "bg-red"
           }  items-center justify-center rounded-2xl p-2 aspect-square`}
         >
@@ -30,6 +36,8 @@ const TransactionCard = ({
                 ? require("../assets/icons/shopping-bag.png")
                 : category == "subscription"
                 ? require("../assets/icons/recurring-bill.png")
+                : category == "salary"
+                ? require("../assets/icons/salary.png")
                 : ""
             }
             resizeMode="cover"
@@ -37,9 +45,7 @@ const TransactionCard = ({
         </View>
         <View className="justify-between gap-5">
           <Text className="capitalize font-inter500 text-xl">{category}</Text>
-          <Text className="font-inter500 text-base text-gray-400">
-            {description}
-          </Text>
+          <Text className="font-inter500 text-base text-gray-400">{title}</Text>
         </View>
       </View>
       <View className="justify-between">
@@ -52,7 +58,7 @@ const TransactionCard = ({
         </Text>
         <Text className="font-inter500 text-base text-gray-400">{time}</Text>
       </View>
-    </View>
+    </Pressable>
   );
 };
 

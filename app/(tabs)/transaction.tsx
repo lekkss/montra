@@ -4,6 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { cashFlowData } from "@/constants/data";
 import TransactionCard from "@/components/TransactionCard";
 import { ScrollView } from "react-native-gesture-handler";
+import FilterBadge from "@/components/badge/FilterBadge";
 
 const Transaction = () => {
   return (
@@ -18,14 +19,7 @@ const Transaction = () => {
               />
               <Text className="font-inter500 text-lg">Month</Text>
             </View>
-            <Pressable>
-              <View className="w-12 h-12 items-center justify-center border border-[#F1F1FA] rounded-xl">
-                <Image
-                  source={require("../../assets/icons/sort.png")}
-                  resizeMode="contain"
-                />
-              </View>
-            </Pressable>
+            <FilterBadge />
           </View>
           <Pressable className="bg-violet/20 rounded-xl p-4 flex-row justify-between items-center">
             <Text className="font-inter400 text-xl text-violet">
